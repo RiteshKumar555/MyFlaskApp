@@ -17,10 +17,14 @@ app.config['SECRET_KEY'] = 'FUCK'
 mysql = MySQL(app)
 
 # Articles=Articles()
+# def f():
+#     print S
 
+# S="username"
+# f()    
 
 @app.route('/')
-def index():
+def home():
     return render_template('home.html')
 
 @app.route('/about')
@@ -47,7 +51,14 @@ def  articles():
 
 @app.route('/article/<string:id>/')  
 def article(id):
-    return render_template('article.html',id=id) 
+
+    cur=mysql.connection.cursor()
+
+    result=cur.execute("SELECT * FROM articles WHERE id = %s",[id] )
+
+    article=cur.fetchone()
+
+    return render_template('article.html', article=article) 
 
 class RegisterForm(Form):
     name=StringField('Name', [validators.Length(min=1,max=50)])
@@ -178,14 +189,68 @@ def add_article():
     return render_template('add_articles.html', form=form)
 
 
+@app.route('/edit_article/<string:id>', methods=['GET', 'POST'])
+@is_logged_in
+def edit_article(id):
+
+    cur=mysql.connection.cursor()
+
+    result=cur.execute("SELECT * FROM articles WHERE id = %s",[id])
+
+    article = cur.fetchone()
+
+
+    form = ArticleForm(request.form)
+
+    form.title.data=article['title']
+    form.body.data=article['body']
+
+    if request.method == 'POST' and form.validate():
+        title = request.form['title']
+        body = request.form['body']
+
+       
+        cur = mysql.connection.cursor()
+
+        
+        cur.execute("UPDATE articles SET title = %s, body = %s WHERE id = %s",(title,body,id))
+
+       
+        mysql.connection.commit()
+
+        cur.close()
+
+        flash('Article Updated', 'success')
+
+        return redirect(url_for('dashboard'))
+
+    return render_template('edit_article.html', form=form)
+
+@app.route('/delete_article/<string:id>')    
+@is_logged_in
+def delete_article(id):
+    cur=mysql.connection.cursor()
+
+    cur.execute("DELETE FROM articles WHERE id = %s",[id])
+
+    mysql.connection.commit()
+
+    cur.close()
+
+    flash('Article Updated', 'success')
+
+    return redirect(url_for('dashboard'))
 
    
 
 @app.route('/logout')
 def logout():
-    session.clear()
-    flash('You are now loggedout','success')
-    return redirect(url_for('login'))    
+    
+    if session.get('username'):
+       
+        del session['username']
+    flash('You have successfully logged')
+    return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
