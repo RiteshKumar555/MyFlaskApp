@@ -16,13 +16,6 @@ app.config['SECRET_KEY'] = 'FUCK'
 
 mysql = MySQL(app)
 
-# Articles=Articles()
-# def f():
-#     print S
-
-# S="username"
-# f()    
-
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -245,13 +238,25 @@ def delete_article(id):
 
 @app.route('/logout')
 def logout():
-    
-    if session.get('username'):
-       
-        del session['username']
+    session.pop("username",None)
     flash('You have successfully logged')
     return redirect(url_for('login'))
 
+@app.route('/courses')
+def dropdown():
+    return render_template('course.html')    
+
+@app.route('/cat')
+def cat():
+    return render_template('cat.html')    
+
+    
+    # if session.get('username'):
+
+
+
+       
+       
 
 if __name__ == '__main__':
     app.run(debug=True)
