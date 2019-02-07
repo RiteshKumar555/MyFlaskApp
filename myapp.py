@@ -54,34 +54,40 @@ def article(id):
     return render_template('article.html', article=article) 
 
 class RegisterForm(Form):
-    name=StringField('Name', [validators.Length(min=1,max=50)])
-    username=StringField('Username', [validators.Length(min=4,max=25)])
-    email=StringField('E-mail',[validators.Length(min=6,max=30)])
-    password=PasswordField('Password',[validators.DataRequired(),validators.EqualTo('confirm' , message='Password do not match')])
-    confirm=PasswordField('comfirmPassword')
+    name = StringField('Name', [validators.Length(min=1, max=50)])
+    username = StringField('Username', [validators.Length(min=4, max=25)])
+    email = StringField('Email', [validators.Length(min=6, max=50)])
+    password = PasswordField('Password', [
+        validators.DataRequired(),
+        validators.EqualTo('confirm', message='Passwords do not match')
+    ])
+    confirm = PasswordField('Confirm Password')
 
-@app.route('/register',methods=['GET','POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    form=RegisterForm(request.form) 
+    form = RegisterForm(request.form)
     if request.method == 'POST' and form.validate():
-        name=form.name.data
-        email=form.email.data
-        username=form.username.data
-        password=sha256_crypt.encrypt(str(form.password.data))
+        name = form.name.data
+        email = form.email.data
+        username = form.username.data
+        password = sha256_crypt.encrypt(str(form.password.data))
 
-        cur=mysql.connection.cursor()
+        cur = mysql.connection.cursor()
 
-        cur.execute("INSERT INTO usesr(name,email,username,password) VALUES(%s, %s, %s, %s)",(name,email,username, password))
+      
+        cur.execute("INSERT INTO users(name, email, username, password) VALUES(%s, %s, %s, %s)", (name, email, username, password))
 
+     
         mysql.connection.commit()
 
+      
         cur.close()
 
-        flash('You are now register and can log in', 'success')
+        flash('You are now registered and can log in', 'success')
 
+        return redirect(url_for('login'))
+    return render_template('register.html', form=form)
 
-        redirect(url_for('login'))
-    return render_template('register.html', form=form) 
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -147,6 +153,8 @@ def dashboard():
         return render_template('dashboard.html',msg=msg)
 
         cur.close()
+
+
  
 
 
@@ -238,24 +246,93 @@ def delete_article(id):
 
 @app.route('/logout')
 def logout():
-    session.pop("username",None)
+    session.clear()
     flash('You have successfully logged')
     return redirect(url_for('login'))
 
 @app.route('/courses')
-def dropdown():
+def courses():
     return render_template('course.html')    
 
 @app.route('/cat')
 def cat():
     return render_template('cat.html')    
 
-    
-    # if session.get('username'):
+@app.route('/cmat')
+def cmat():
+    return render_template('cmat.html')
+
+@app.route('/xat')
+def xat():
+    return render_template('xat.html')  
+
+@app.route('/iift')
+def iift():
+    return render_template('iift.html')   
+
+@app.route('/snap')
+def snap():
+    return render_template('snap.html')   
+
+@app.route('/nmat')
+def nmat():
+    return render_template('nmat.html') 
+
+@app.route('/mat')
+def mat():
+    return render_template('mat.html') 
 
 
+@app.route('/mh-cet')
+def mhcet():
+    return render_template('mh-cet.html') 
+
+@app.route('/ibsat')
+def ibsat():
+    return render_template('ibsat.html') 
+
+
+@app.route('/syallabus')
+@is_logged_in
+def syallabus():
+    return render_template('syallabuses.html')
+
+
+class SyallabusForm(Form):
+    courses = StringField('Courses', [validators.Length(min=1, max=200)])
+    syallabus = TextAreaField('Syallabus', [validators.Length(min=4, max=2000)])
+
+@app.route('/add_syallabus', methods=['GET', 'POST'])
+@is_logged_in
+def add_syallabus():
+    form = SyallabusForm(request.form)
+    if request.method == 'POST' and form.validate():
+        courses = form.courses.data
+        syallabus = form.syallabus.data
 
        
+        cur = mysql.connection.cursor()
+
+        
+        cur.execute("INSERT INTO syallabus(courses, syallabus, ) VALUES(%s, %s)",(courses, syallabus))
+
+       
+        mysql.connection.commit()
+
+        cur.close()
+
+        flash('Syallabus add', 'success')
+
+        return redirect(url_for('add_syallabus'))
+
+    return render_template('add_syallabus.html', form=form)
+
+
+
+
+
+
+
        
 
 if __name__ == '__main__':
