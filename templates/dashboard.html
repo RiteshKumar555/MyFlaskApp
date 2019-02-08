@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block body%}
+<div="container">
 <h1>Dashboard<small> welcome {{session.username}} </small></h1>
 <a class="btn btn-success" href="/add_article">Add article</a>
 <hr>
@@ -29,7 +30,31 @@
 
     </tr>
     {% endfor %}
-</table>
+    </table>
+    </div>
+    <div=container>
+    <a class="btn btn-success" href="/add_syallabus">Add Syallabus</a>
+    <hr>
+    <table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>courses</th>
+        <th>syallabus</th>
+        <th>Date</th>
+        <th></th>
+        <th></th>
+    </tr>
+    {% for syallabus in syallabuses %}
+    <tr>
+        <td>{{syallabus.id}}</td>
+        <td>{{syallabus.courses}}</td>
+        <td>{{syallabus.syallabus}}</td>
+        <td>{{syallabus.create_date}}</td>
+    </tr> 
+    {% endfor %}   
+    </table>
+</div>
+
 {% endblock%}
 
 

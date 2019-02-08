@@ -142,20 +142,20 @@ def dashboard():
 
     cur=mysql.connection.cursor()
 
-    result=cur.execute("SELECT * FROM articles")
+    result=cur.execute("SELECT articles.title,articles.body,syallabuses.courses,syallabuses.syallabus FROM articles,syallabuses WHERE article.articles=syallabuses.syallabuses ")
+  
+
 
     articles=cur.fetchall()
+  
 
     if result>0:
-        return render_template('dashboard.html',articles=articles)
+        return render_template('dashboard.html',articles=articles,syallabuses=syallabuses)
     else:
         msg='No Article Found'
-        return render_template('dashboard.html',msg=msg)
+        return render_template('dashboard.html')
+    return render_template('dashboard.html')    
 
-        cur.close()
-
-
- 
 
 
     
@@ -292,15 +292,52 @@ def ibsat():
     return render_template('ibsat.html') 
 
 
-@app.route('/syallabus')
-@is_logged_in
-def syallabus():
-    return render_template('syallabuses.html')
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/syallabuses')
+def  syallabuses():
+    cur=mysql.connection.cursor()
+
+    result=cur.execute("SELECT * FROM syallabuses")
+
+    syallabuses=cur.fetchall()
+
+    if result>0:
+        return render_template('syallabuses.html',syallabuses=syallabuses)
+    else:
+        msg='No syallabus Found'
+        return render_template('syallabuses.html',msg=msg)
+
+    cur.close()
+ 
+     
+
+@app.route('/syallabus/<string:id>/')  
+def syallabus(id):
+
+    cur=mysql.connection.cursor()
+
+    result=cur.execute("SELECT * FROM syallabuses WHERE id = %s",[id] )
+
+    syallabus=cur.fetchone()
+
+    return render_template('syallabus.html', syallabus=syallabus) 
+
 
 
 class SyallabusForm(Form):
-    courses = StringField('Courses', [validators.Length(min=1, max=200)])
-    syallabus = TextAreaField('Syallabus', [validators.Length(min=4, max=2000)])
+    courses = StringField('courses', [validators.Length(min=1, max=200)])
+    syallabus = TextAreaField('syallabus', [validators.Length(min=1,max=2000)])
+
 
 @app.route('/add_syallabus', methods=['GET', 'POST'])
 @is_logged_in
@@ -314,18 +351,19 @@ def add_syallabus():
         cur = mysql.connection.cursor()
 
         
-        cur.execute("INSERT INTO syallabus(courses, syallabus, ) VALUES(%s, %s)",(courses, syallabus))
+        cur.execute("INSERT INTO syallabuses(courses, syallabus) VALUES(%s, %s)",(courses, syallabus))
 
        
         mysql.connection.commit()
 
         cur.close()
 
-        flash('Syallabus add', 'success')
+        flash('syallabus present here:', 'success')
 
-        return redirect(url_for('add_syallabus'))
+        return redirect(url_for('dashboard'))
 
-    return render_template('add_syallabus.html', form=form)
+    return render_template('add_syallabuses.html', form=form)    
+
 
 
 

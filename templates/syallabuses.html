@@ -1,32 +1,10 @@
 {% extends 'layout.html' %}
 
-{% block body%}
-<h1>Dashboard<small> welcome syallabus are here: </small></h1>
-<a class="btn btn-success" href="/add_syallabus">Add syallabus</a>
-<hr>
-<table class="table table-striped">
-    <tr>
-        <th>ID</th>
-        <th>Courses</th>
-        <th>Syallabus</th>
-        <th>Date</th>
-        <th></th>
-    </tr>
+{% block body %}
+  <h1>syallabus</h1>
+  <ul class="list-group">
     {% for syallabus in syallabuses %}
-    <tr>
-        <td>{{syallabuses.id}}</td>
-        <td>{{syallabuses.courses}}</td>
-        <td>{{syallabuses.syallabus}}</td>
-        <td>{{syallabuses.create_date}}</td>
-        <td><a href="edit_syallabus/{{syallabus.id}}", class="btn btn-default pull-right">Edit</a>
-        <td>    
-            <form action="{{url_for('delete_syallabus', id=syallabus.id)}}" methods="post">
-            <input type="hidden"  name="_method" value="DELETE">
-            <input type="submit" class="btn btn-danger" value="delete"> 
-        </form>
-        </td>
-
-    </tr>
+      <li class="list-group-item"><a href="syallabus/{{syallabus.id}}">{{syallabus.courses}}</a></li>
     {% endfor %}
-</table>
-{% endblock%}
+  </ul>
+{% endblock %}
