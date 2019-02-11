@@ -25,10 +25,10 @@
             <form action="{{url_for('delete_article', id=article.id)}}" methods="post">
             <input type="hidden"  name="_method" value="DELETE">
             <input type="submit" class="btn btn-danger" value="delete"> 
-        </form>
+        </form> 
         </td>
 
-    </tr>
+     </tr>
     {% endfor %}
     </table>
     </div>
@@ -40,7 +40,6 @@
         <th>ID</th>
         <th>courses</th>
         <th>syallabus</th>
-        <th>Date</th>
         <th></th>
         <th></th>
     </tr>
@@ -50,6 +49,12 @@
         <td>{{syallabus.courses}}</td>
         <td>{{syallabus.syallabus}}</td>
         <td>{{syallabus.create_date}}</td>
+        <td><a href="edit_syallabus/{{syallabus.id}}", class="btn btn-default pull-right">Edit</a>
+        <td>    
+            <form action="{{url_for('delete_syallabus', id=syallabus.id)}}" methods="post">
+            <input type="hidden"  name="_method" value="DELETE">
+            <input type="submit" class="btn btn-danger" value="delete"> 
+        </form> 
     </tr> 
     {% endfor %}   
     </table>

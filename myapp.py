@@ -136,25 +136,25 @@ def is_logged_in(f):
     return wrap   
 
 
-@app.route('/dashboard')
-@is_logged_in
-def dashboard():
+# @app.route('/dashboard')
+# @is_logged_in
+# def dashboard():
 
-    cur=mysql.connection.cursor()
+#     cur=mysql.connection.cursor()
 
-    result=cur.execute("SELECT articles.title,articles.body,syallabuses.courses,syallabuses.syallabus FROM articles,syallabuses WHERE article.articles=syallabuses.syallabuses ")
+#     result=cur.execute("SELECT * FROM articles WHERE author = %s", [session['username']])
   
 
 
-    articles=cur.fetchall()
+#     articles=cur.fetchall()
   
 
-    if result>0:
-        return render_template('dashboard.html',articles=articles,syallabuses=syallabuses)
-    else:
-        msg='No Article Found'
-        return render_template('dashboard.html')
-    return render_template('dashboard.html')    
+#     if result>0:
+#         return render_template('dashboard.html',articles=articles)
+#     else:
+#         msg='No Article Found'
+#         return render_template('dashboard.html')
+#     return render_template('dashboard.html')    
 
 
 
@@ -292,6 +292,38 @@ def ibsat():
     return render_template('ibsat.html') 
 
 
+@app.route('/examdates')
+def examdates():
+    return render_template('examdates.html') 
+
+@app.route('/criteria')
+def criteria():
+    return render_template('criteria.html')     
+
+
+
+
+
+@app.route('/dashboard')
+@is_logged_in
+def dashboard():
+
+    cur=mysql.connection.cursor()
+
+    result=cur.execute("SELECT * FROM syallabuses")
+  
+
+
+    syallabuses=cur.fetchall()
+  
+
+    if result>0:
+        return render_template('dashboard.html',syallabuses=syallabuses)
+    else:
+        msg='No Article Found'
+        return render_template('dashboard.html')
+    return render_template('dashboard.html')    
+
 
 
 
@@ -362,7 +394,62 @@ def add_syallabus():
 
         return redirect(url_for('dashboard'))
 
-    return render_template('add_syallabuses.html', form=form)    
+    return render_template('add_syallabuses.html', form=form) 
+
+
+@app.route('/edit_syallabus/<string:id>', methods=['GET', 'POST'])
+@is_logged_in
+def edit_syallabus(id):
+
+    cur=mysql.connection.cursor()
+
+    result=cur.execute("SELECT * FROM syallabuses WHERE id = %s",[id])
+
+    syallabus = cur.fetchone()
+
+
+    form = SyallabusForm(request.form)
+
+    form.courses.data=syallabus['courses']
+    form.syallabus.data=syallabus['syallabus']
+
+    if request.method == 'POST' and form.validate():
+        courses = request.form['courses']
+        syallabus = request.form['syallabus']
+
+       
+        cur = mysql.connection.cursor()
+
+        
+        cur.execute("UPDATE syallabuses SET courses = %s, syallabus = %s WHERE id = %s",(courses,syallabus,id))
+
+       
+        mysql.connection.commit()
+
+        cur.close()
+
+        flash('Syallabus update', 'success')
+
+        return redirect(url_for('dashboard'))
+
+    return render_template('edit_syallabus.html', form=form)
+
+@app.route('/delete_syallabus/<string:id>')    
+@is_logged_in
+def delete_syallabus(id):
+    cur=mysql.connection.cursor()
+
+    cur.execute("DELETE FROM syallabuses WHERE id = %s",[id])
+
+    mysql.connection.commit()
+
+    cur.close()
+
+    flash('syallabus Updated', 'success')
+
+    return redirect(url_for('dashboard'))
+
+
 
 
 
