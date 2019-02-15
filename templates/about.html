@@ -1,9 +1,28 @@
 {% extends 'layout.html' %}
 {%block body%}
-<h1>About Us:</h1>
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/about-bg.jpg') }}')">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+              <div class="page-heading">
+                <h1>About Us:</h1>
+                <span class="subheading">This is what I do.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+     <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
 <p class="lead">After graduation, a student has two types of openings: prepare themselves for campus job interviews or dive into the competitive exams for jobs.Build a website for users they have an ease in finding the following queries: 
         criteria,Syallabus,Previous year papers and exam dates for compatitive
 exams.Most of the student at the time of exam have difficulties in     preparation for exams,as they don’t know about the syallabus,criteria and exam dates . when the users start the preparation for exam then they faces many problems like:they don’t know the idea from where they start the study and they also dont know about the idea of exam pattern .So for the preparation purpose user need to read the previous years exam papers.We will partner with faculty, students who did discussion for the problems.Provide users easy pattern and the updated syallabus for the preparations.To provide consistent, best-in-class support, and give the best solution to the users;communicating effectively;and exceeding stakeholder expectations. To respond rapidly and positively to all stakeholder inquiries.
 Whose students are not going to the coaching classes  so they easily learn from here.                
 </p> 
+</div>
+</div>
+</div>
+
 {%endblock%}

@@ -1,8 +1,21 @@
 {% extends 'layout.html' %}
+{%block body%}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/about-bg.jpg') }}')">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row">
+            <!-- <div class="col-lg-8 col-md-10 mx-auto"> -->
+              <div class="page-heading">
+                    <h1>Dashboard<small> welcome {{session.username}} </small></h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+     <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
 
-{% block body%}
-<div="container">
-<h1>Dashboard<small> welcome {{session.username}} </small></h1>
 <a class="btn btn-success" href="/add_article">Add article</a>
 <hr>
 <table class="table table-striped">
@@ -30,35 +43,9 @@
 
      </tr>
     {% endfor %}
-    </table>
+</table>
     </div>
-    <div=container>
-    <a class="btn btn-success" href="/add_syallabus">Add Syallabus</a>
-    <hr>
-    <table class="table table-striped">
-    <tr>
-        <th>ID</th>
-        <th>courses</th>
-        <th>syallabus</th>
-        <th></th>
-        <th></th>
-    </tr>
-    {% for syallabus in syallabuses %}
-    <tr>
-        <td>{{syallabus.id}}</td>
-        <td>{{syallabus.courses}}</td>
-        <td>{{syallabus.syallabus}}</td>
-        <td>{{syallabus.create_date}}</td>
-        <td><a href="edit_syallabus/{{syallabus.id}}", class="btn btn-default pull-right">Edit</a>
-        <td>    
-            <form action="{{url_for('delete_syallabus', id=syallabus.id)}}" methods="post">
-            <input type="hidden"  name="_method" value="DELETE">
-            <input type="submit" class="btn btn-danger" value="delete"> 
-        </form> 
-    </tr> 
-    {% endfor %}   
-    </table>
-</div>
+
 
 {% endblock%}
 

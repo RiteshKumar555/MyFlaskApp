@@ -1,20 +1,135 @@
+
 <html>
   <head>
-    <title>MyFlaskApp</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <title>MyFLaskAPP</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/clean-blog.min.css') }}" rel="stylesheet">
+
   </head>
+
   <body>
 
-    {% include 'includes/_navbar.html' %}
-     <div class="container">
-       {% include 'includes/_messages.html' %}
-      {% block body %}{% endblock %}
-      </div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand" href="/"></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/articles">articles</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/courses">Courses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/syallabuses">Syallabuses</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/examdates">Examdates</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/criteria">Criteria</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/post">Post</a>
+                    </li>
+           
+             
+              {% if session.logged_in %}
+              <li class="nav-item">
+                <a href="/dashboard">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                  <a href="/dashboardsyallabus">D-syallabus</a>
+                </li>
+              <li class="nav-item">
+                <a href="/logout">Logout</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a href="/register">Register</a>
+              </li>
+              <li class="nav-item">
+                <a href="/login">Login</a>
+              </li>
+              {% endif %}
+  </ul>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="//cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script>"
-    <script type="text/javascript">
-    CKEDITOR.replace('editor')
-    </script>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      {%include 'includes/_messages.html' %}
+    </div>
+
+{% block body %} {% endblock %}
+
+ <hr>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="{{ url_for('static', filename='js/clean-blog.min.js') }}"></script>
+
   </body>
+
 </html>

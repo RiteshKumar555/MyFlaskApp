@@ -1,7 +1,22 @@
 {% extends 'layout.html' %}
-
-{% block body %}
-  <h1>syallabus</h1>
+{%block body%}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/syallabus.jpeg') }}')">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+              <div class="page-heading">
+                <h1>Syallabus</h1>
+                <span class="subheading">This is what I do.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+     <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <body>
   <ul class="list-group">
     {% for syallabus in syallabuses %}
       <li class="list-group-item"><a href="syallabus/{{syallabus.id}}">{{syallabus.courses}}</a></li>

@@ -1,43 +1,58 @@
 {% extends 'layout.html' %}
+{%block body%}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/criteria.jpg') }}')">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+              <div class="page-heading">
+                <h1>Criteria</h1>
+                <span class="subheading">This is what I do.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+     <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
 
-{% block body %}
-  <h1>Criteria:-</h1>
           <body>
-              <li><a href="/cat">Common Admission Test (CAT)</a></li>
-              <li><a href="/cmat">Common Management Admission Test(CMAT)</a></li>
-              <li><a href="/xat">Xavier Aptitude Test (XAT):</a></li>
-              <li><a href="/iift">The Indian Institute of Foreign Trade (IIFT)</a></li>
-              <li><a href="/snap">Symbiosis National Aptitude (SNAP)</a></li>
-              <li><a href="/nmat">NMAT</a></li>
-              <li><a href="/mat">Management Aptitude Test (MAT)</a></li>
-              <li><a href="/mh-cet">Maharashtra Common Entrance Test (MH-CET)</a></li>
-              <li><a href="/ibsat">IBSAT</a></li>
+              <li><a href="/Cat">Common Admission Test (CAT)</a></li>
+              <li><a href="/Cmat">Common Management Admission Test(CMAT)</a></li>
+              <li><a href="/Xat">Xavier Aptitude Test (XAT):</a></li>
+              <li><a href="/Iift">The Indian Institute of Foreign Trade (IIFT)</a></li>
+              <li><a href="/Snap">Symbiosis National Aptitude (SNAP)</a></li>
+              <li><a href="/Nmat">NMAT</a></li>
+              <li><a href="/Mat">Management Aptitude Test (MAT)</a></li>
+              <li><a href="/Mh-cet">Maharashtra Common Entrance Test (MH-CET)</a></li>
+              <li><a href="/Ibsat">IBSAT</a></li>
     
-                <li><a href="/gmat">Graduate Management Admission Test (GMAT)</a></li>
-                <li><a href="/gre">Graduate Record Examinations (GRE)</a></li>
+                <li><a href="/Gmat">Graduate Management Admission Test (GMAT)</a></li>
+                <li><a href="/Gre">Graduate Record Examinations (GRE)</a></li>
                 
           
-                <li><a href="/gate">Graduate Aptitude Test in Engineering (GATE)</a></li>
-                <li><a href="/jam">Joint Admission Test for M.Sc. (JAM)</a></li>
-                <li><a href="/cse">Civil Services Examination (CSE)</a></li>
-                <li><a href="/ies">Indian Economic Service Examination (IES)</a></li>
-                <li><a href="/iss">ndian Statistical Service Examination (ISS)</a></li>
+                <li><a href="/Gate">Graduate Aptitude Test in Engineering (GATE)</a></li>
+                <li><a href="/Jam">Joint Admission Test for M.Sc. (JAM)</a></li>
+                <li><a href="/Cse">Civil Services Examination (CSE)</a></li>
+                <li><a href="/Ies">Indian Economic Service Examination (IES)</a></li>
+                <li><a href="/Iss">ndian Statistical Service Examination (ISS)</a></li>
         
-                <li><a href="/edcet">B.Ed. Common Entrance Test (EdCET)</a></li>
-                <li><a href="/icar">Indian Council of Agriculture Research (ICAR)</a></li>
+                <li><a href="/Edcet">B.Ed. Common Entrance Test (EdCET)</a></li>
+                <li><a href="/Icar">Indian Council of Agriculture Research (ICAR)</a></li>
                 
         
            
-                <li><a href="/po">SBI PO Exams</a></li>
-                <li><a href="/management">IBPS PO/Management Trainee Exams</a></li>
-                <li><a href="/ibps">IBPS Clerk Exams</a></li>
-                <li><a href="/nabard">National Bank for Agriculture & Rural Development (NABARD)</a></li>
-                <li><a href="/rbi">RBI Grade A and Grade B Exams</a></li>
+                <li><a href="/Po">SBI PO Exams</a></li>
+                <li><a href="/Management">IBPS PO/Management Trainee Exams</a></li>
+                <li><a href="/Ibps">IBPS Clerk Exams</a></li>
+                <li><a href="/Nabard">National Bank for Agriculture & Rural Development (NABARD)</a></li>
+                <li><a href="/Rbi">RBI Grade A and Grade B Exams</a></li>
         
-                <li><a href="/lic">L.I.C/ G.I.C Competitive Exams:</a></li>
+                <li><a href="/Lic">L.I.C/ G.I.C Competitive Exams:</a></li>
            
-                <li><a href="/ssc">SSC Combined Graduate Level Exams</a></li>
-                <li><a href="/railway">Railway jobs test</a></li>
+                <li><a href="/Ssc">SSC Combined Graduate Level Exams</a></li>
+                <li><a href="/Railway">Railway jobs test</a></li>
            
         
 </body>  

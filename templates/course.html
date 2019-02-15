@@ -1,7 +1,21 @@
 {% extends 'layout.html' %}
-
-{% block body %}
-  <h1>Courses:</h1>
+{%block body%}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/course.jpg') }}')">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+              <div class="page-heading">
+                <h1>Courses</h1>
+                <span class="subheading">This is what I do.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+     <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
   <body>
   <p><h3>Listed below are some of the competitive exams that a student can take after graduation:<h3></p>
     <p><h5>For management courses, following are some of the competitive entrance  exams a graduate can appear for:</h5></p> 

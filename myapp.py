@@ -20,6 +20,10 @@ mysql = MySQL(app)
 def home():
     return render_template('home.html')
 
+@app.route('/post')
+def post():
+    return render_template('post.html')
+
 @app.route('/about')
 def  about():
     return render_template('about.html')   
@@ -136,25 +140,45 @@ def is_logged_in(f):
     return wrap   
 
 
-# @app.route('/dashboard')
-# @is_logged_in
-# def dashboard():
+@app.route('/dashboard')
+@is_logged_in
+def dashboard():
 
-#     cur=mysql.connection.cursor()
+    cur=mysql.connection.cursor()
 
-#     result=cur.execute("SELECT * FROM articles WHERE author = %s", [session['username']])
+    result=cur.execute("SELECT * FROM articles")
+   
+    articles=cur.fetchall()
+    
   
 
+    if result>0:
+        return render_template('dashboard.html',articles=articles)
+    else:
+        msg='No Article Found'
+        return render_template('dashboard.html')  
+    return render_template('dashboard.html')    
 
-#     articles=cur.fetchall()
+
+
+@app.route('/dashboardsyallabus')
+@is_logged_in
+def dashboardsyallabus():
+
+    cur=mysql.connection.cursor()
+
+    result=cur.execute("SELECT * FROM syallabuses")
+   
+    syallabuses=cur.fetchall()
+    
   
 
-#     if result>0:
-#         return render_template('dashboard.html',articles=articles)
-#     else:
-#         msg='No Article Found'
-#         return render_template('dashboard.html')
-#     return render_template('dashboard.html')    
+    if result>0:
+        return render_template('dashboardsyallabus.html',syallabuses=syallabuses)
+    else:
+        msg='No syallabus Found'
+        return render_template('dashboardsyallabus.html')  
+    return render_template('dashboardsyallabus.html')    
 
 
 
@@ -221,7 +245,7 @@ def edit_article(id):
 
         cur.close()
 
-        flash('Article Updated', 'success')
+        # flash('Article Updated', 'success')
 
         return redirect(url_for('dashboard'))
 
@@ -298,31 +322,18 @@ def examdates():
 
 @app.route('/criteria')
 def criteria():
-    return render_template('criteria.html')     
+    return render_template('criteria.html')  
+
+@app.route('/Cat')
+def Cat():
+    return render_template('Cat.html')
 
 
+@app.route('/Cmat')
+def Cmat():
+    return render_template('Cmat.html')
 
 
-
-@app.route('/dashboard')
-@is_logged_in
-def dashboard():
-
-    cur=mysql.connection.cursor()
-
-    result=cur.execute("SELECT * FROM syallabuses")
-  
-
-
-    syallabuses=cur.fetchall()
-  
-
-    if result>0:
-        return render_template('dashboard.html',syallabuses=syallabuses)
-    else:
-        msg='No Article Found'
-        return render_template('dashboard.html')
-    return render_template('dashboard.html')    
 
 
 
@@ -392,7 +403,7 @@ def add_syallabus():
 
         flash('syallabus present here:', 'success')
 
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('dashboardsyallabus'))
 
     return render_template('add_syallabuses.html', form=form) 
 
@@ -430,7 +441,7 @@ def edit_syallabus(id):
 
         flash('Syallabus update', 'success')
 
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('dashboardsyallabus'))
 
     return render_template('edit_syallabus.html', form=form)
 
@@ -447,7 +458,7 @@ def delete_syallabus(id):
 
     flash('syallabus Updated', 'success')
 
-    return redirect(url_for('dashboard'))
+    return redirect(url_for('dashboardsyallabus'))
 
 
 

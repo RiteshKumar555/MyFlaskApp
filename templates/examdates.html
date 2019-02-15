@@ -1,7 +1,21 @@
 {% extends 'layout.html' %}
-
-{% block body %}
-  <h1>Exam Dates:</h1>
+{%block body%}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/examdates.jpg') }}')">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+              <div class="page-heading">
+                <h1>Examdates</h1>
+                <span class="subheading">This is what I do.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+     <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
   <table style="width:100%">
  <tr>
      <th>courses</th>
