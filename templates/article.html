@@ -1,9 +1,26 @@
 {% extends 'layout.html' %}
-
-{% block body %}
-  <h1>{{article.title}}</h1>
+{%block body%}
+<!-- <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/article.jpg') }}')"> -->
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+              <div class="page-heading">
+                <h1>{{article.title}}</h1>
   <small>written by {{article.aurthor}} on {{article.create_date}}</small>
   <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+     <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+
+
+
+  
   <div>
     {{article.body | safe}}
   </div>

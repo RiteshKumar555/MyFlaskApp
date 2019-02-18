@@ -79,7 +79,7 @@ def register():
         cur = mysql.connection.cursor()
 
       
-        cur.execute("INSERT INTO users(name, email, username, password) VALUES(%s, %s, %s, %s)", (name, email, username, password))
+        cur.execute("INSERT INTO usesr(name, email, username, password) VALUES(%s, %s, %s, %s)", (name, email, username, password))
 
      
         mysql.connection.commit()
@@ -161,25 +161,6 @@ def dashboard():
 
 
 
-@app.route('/dashboardsyallabus')
-@is_logged_in
-def dashboardsyallabus():
-
-    cur=mysql.connection.cursor()
-
-    result=cur.execute("SELECT * FROM syallabuses")
-   
-    syallabuses=cur.fetchall()
-    
-  
-
-    if result>0:
-        return render_template('dashboardsyallabus.html',syallabuses=syallabuses)
-    else:
-        msg='No syallabus Found'
-        return render_template('dashboardsyallabus.html')  
-    return render_template('dashboardsyallabus.html')    
-
 
 
     
@@ -245,7 +226,7 @@ def edit_article(id):
 
         cur.close()
 
-        # flash('Article Updated', 'success')
+        flash('Article Updated', 'success')
 
         return redirect(url_for('dashboard'))
 
@@ -318,7 +299,9 @@ def ibsat():
 
 @app.route('/examdates')
 def examdates():
-    return render_template('examdates.html') 
+    return
+
+
 
 @app.route('/criteria')
 def criteria():
@@ -333,68 +316,97 @@ def Cat():
 def Cmat():
     return render_template('Cmat.html')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 @app.route('/syallabuses')
-def  syallabuses():
+def syallabuses():
+    return render_template('syallabuses.html')    
+
+@app.route('/ASdashboard')
+@is_logged_in
+def ASdashboard():
+
     cur=mysql.connection.cursor()
 
-    result=cur.execute("SELECT * FROM syallabuses")
-
-    syallabuses=cur.fetchall()
+    result=cur.execute("SELECT * FROM academicssyallabus")
+   
+    academicssyallabus=cur.fetchall()
+    
+  
 
     if result>0:
-        return render_template('syallabuses.html',syallabuses=syallabuses)
+        return render_template('ASdashboard.html',academicssyallabus=academicssyallabus)
     else:
         msg='No syallabus Found'
-        return render_template('syallabuses.html',msg=msg)
+        return render_template('ASdashboard.html')  
+    return render_template('ASdashboard.html')    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/ academicssyallabus')
+def  academicssyallabus():
+    cur=mysql.connection.cursor()
+
+    result=cur.execute("SELECT * FROM academicssyallabus")
+
+    acasemicssyallabus=cur.fetchall()
+
+    if result>0:
+        return render_template('academicssyallabus.html',academicssyallabus=academicssyallabus)
+    else:
+        msg='No syallabus Found'
+        return render_template('academicssyallabus.html',msg=msg)
 
     cur.close()
  
      
 
-@app.route('/syallabus/<string:id>/')  
-def syallabus(id):
+@app.route('/academicsyallabus/<string:id>/')  
+def academicsyallabus(id):
 
     cur=mysql.connection.cursor()
 
-    result=cur.execute("SELECT * FROM syallabuses WHERE id = %s",[id] )
+    result=cur.execute("SELECT * FROM acadmicssyallabus WHERE id = %s",[id] )
 
-    syallabus=cur.fetchone()
+    academicsyallabus=cursor.fetchone()
 
-    return render_template('syallabus.html', syallabus=syallabus) 
+    return render_template('academicsyallabus.html', academicsyallabus=academicsyallabus) 
 
 
 
-class SyallabusForm(Form):
+class ASyallabusForm(Form):
+    universityname=StringField('universityname', [validators.Length(min=1, max=200)])
     courses = StringField('courses', [validators.Length(min=1, max=200)])
-    syallabus = TextAreaField('syallabus', [validators.Length(min=1,max=2000)])
+    year = StringField('year', [validators.Length(max=11)])
+    sysllabus = TextAreaField('sysllabus', [validators.Length(min=1,max=2000)])
 
 
-@app.route('/add_syallabus', methods=['GET', 'POST'])
+@app.route('/addacademic_syallabus', methods=['GET', 'POST'])
 @is_logged_in
-def add_syallabus():
-    form = SyallabusForm(request.form)
+def addacademic_syallabus():
+    form = ASyallabusForm(request.form)
     if request.method == 'POST' and form.validate():
+        universityname = form.universityname.data
+        year = form.year.data
         courses = form.courses.data
-        syallabus = form.syallabus.data
+        sysllabus = form.sysllabus.data
 
        
         cur = mysql.connection.cursor()
 
         
-        cur.execute("INSERT INTO syallabuses(courses, syallabus) VALUES(%s, %s)",(courses, syallabus))
+        cur.execute("INSERT INTO academicssyallabus(universityname,courses,year, sysllabus) VALUES(%s, %s,%s,%s)",(universityname,courses,year, sysllabus))
 
        
         mysql.connection.commit()
@@ -403,36 +415,41 @@ def add_syallabus():
 
         flash('syallabus present here:', 'success')
 
-        return redirect(url_for('dashboardsyallabus'))
+        return redirect(url_for('ASdashboard'))
 
-    return render_template('add_syallabuses.html', form=form) 
+    return render_template('addacademic_syallabus.html', form=form) 
 
 
-@app.route('/edit_syallabus/<string:id>', methods=['GET', 'POST'])
+@app.route('/edit_ACsyallabus/<string:id>', methods=['GET', 'POST'])
 @is_logged_in
-def edit_syallabus(id):
+def edit_ACsyallabus(id):
 
     cur=mysql.connection.cursor()
 
-    result=cur.execute("SELECT * FROM syallabuses WHERE id = %s",[id])
+    result=cur.execute("SELECT * FROM academicssyallabus WHERE id = %s",[id])
 
-    syallabus = cur.fetchone()
+    academicsyallabus = cur.fetchone()
 
 
-    form = SyallabusForm(request.form)
-
-    form.courses.data=syallabus['courses']
-    form.syallabus.data=syallabus['syallabus']
+    form = ASyallabusForm(request.form)
+      
+    form.universityname.data=academicsyallabus['universityname']
+    form.courses.data=academicsyallabus['courses']
+    # form.year.data=academicsyallabus['year']
+    form.sysllabus.data=academicsyallabus['sysllabus']
 
     if request.method == 'POST' and form.validate():
+
+        universityname = request.form['universityname']
         courses = request.form['courses']
-        syallabus = request.form['syallabus']
+        year = request.form['year']
+        sysllabus = request.form['sysllabus']
 
        
         cur = mysql.connection.cursor()
 
         
-        cur.execute("UPDATE syallabuses SET courses = %s, syallabus = %s WHERE id = %s",(courses,syallabus,id))
+        cur.execute("UPDATE academicssyallabus SET universityname = %s,courses = %s,year=%s, sysllabus = %s WHERE id = %s",(universityname,courses,year,sysllabus,id))
 
        
         mysql.connection.commit()
@@ -441,16 +458,16 @@ def edit_syallabus(id):
 
         flash('Syallabus update', 'success')
 
-        return redirect(url_for('dashboardsyallabus'))
+        return redirect(url_for('ASdashboard'))
 
-    return render_template('edit_syallabus.html', form=form)
+    return render_template('edit_ACsyallabus.html', form=form)
 
-@app.route('/delete_syallabus/<string:id>')    
+@app.route('/delete_ACsyallabus/<string:id>')    
 @is_logged_in
-def delete_syallabus(id):
+def delete_ACsyallabus(id):
     cur=mysql.connection.cursor()
 
-    cur.execute("DELETE FROM syallabuses WHERE id = %s",[id])
+    cur.execute("DELETE FROM academicssyallabus WHERE id = %s",[id])
 
     mysql.connection.commit()
 
@@ -458,10 +475,11 @@ def delete_syallabus(id):
 
     flash('syallabus Updated', 'success')
 
-    return redirect(url_for('dashboardsyallabus'))
+    return redirect(url_for('ASdashboard'))
 
-
-
+@app.route('/academicssyallabus')
+def academics_syallabus():
+    return render_template('academicssyallabus.html')
 
 
 

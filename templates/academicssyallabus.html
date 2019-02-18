@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{%block body%}
+<ul class="list-group">
+    {% for academicsyallabus in academicssyallabus %}
+      <li class="list-group-item"><a href="academicsyallabus/{{academicsyallabus.id}}">{{academicssyallabus.courses}}</a></li>
+    {% endfor %}
+  </ul> 
+
+
+{% endblock %}

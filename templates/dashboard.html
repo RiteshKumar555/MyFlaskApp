@@ -1,21 +1,19 @@
 {% extends 'layout.html' %}
 {%block body%}
-<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/about-bg.jpg') }}')">
-        <div class="overlay"></div>
-        <div class="container">
-          <div class="row">
-            <!-- <div class="col-lg-8 col-md-10 mx-auto"> -->
-              <div class="page-heading">
-                    <h1>Dashboard<small> welcome {{session.username}} </small></h1>
-              </div>
-            </div>
+<div class="container" style="background-image: url('{{ url_for('static', filename='img/my.jpeg') }}')">
+    <div class="overlay"></div>
+    <div class="container"> 
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+          <div class="page-heading">
+            <hr>
+            <hr>
+            
           </div>
         </div>
-      </header>
-     <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-
+      </div>
+    </div>
+    <h1>dashboard</h1>
 <a class="btn btn-success" href="/add_article">Add article</a>
 <hr>
 <table class="table table-striped">

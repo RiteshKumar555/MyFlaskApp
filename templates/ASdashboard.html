@@ -17,26 +17,30 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
 <div="container">
-<h1>Dashboard<small> welcome {{session.username}} </small></h1>
-<a class="btn btn-success" href="/add_syallabus">Add syallabus</a>
+
+<a class="btn btn-success" href="/addacademic_syallabus">Add syallabus</a>
 <hr>
 <body>
     <table class="table table-striped">
     <tr>
         <th>ID</th>
+        <th>university_name</th>
+        <th>year</th>
         <th>courses</th>
-        <th>syallabus</th>
+        <th>sysllabus</th>
        
     </tr>
-    {% for syallabus in syallabuses %}
+    {% for academicsyallabus in academicssyallabus %}
     <tr>
-        <td>{{syallabus.id}}</td>
-        <td>{{syallabus.courses}}</td>
-        <td>{{syallabus.syallabus}}</td>
-        <td>{{syallabus.create_date}}</td>
-        <td><a href="edit_syallabus/{{syallabus.id}}", class="btn btn-default pull-right">Edit</a>
+        <td>{{academicsyallabus.id}}</td>
+        <td>{{academicsyallabus.universityname}}</td>
+        <td>{{academicsyallabus.year}}</td>
+        <td>{{academicsyallabus.courses}}</td>
+        <td>{{academicsyallabus.syallabus}}</td>
+        <td>{{academicsyallabus.create_date}}</td>
+        <td><a href="edit_ACsyallabus/{{academicsyallabus.id}}", class="btn btn-default pull-right">Edit</a>
         <td>    
-            <form action="{{url_for('delete_syallabus', id=syallabus.id)}}" methods="post">
+            <form action="{{url_for('delete_ACsyallabus', id=academicsyallabus.id)}}" methods="post">
             <input type="hidden"  name="_method" value="DELETE">
             <input type="submit" class="btn btn-danger" value="delete"> 
         </form> 
