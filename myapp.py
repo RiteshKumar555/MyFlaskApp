@@ -1,10 +1,12 @@
 from flask import Flask,render_template,flash,redirect,url_for,session,request,logging
-# from data import Articles
+from data1 import Academicssyallabus
 from flask_mysqldb import MySQL
 from wtforms import Form,StringField,TextAreaField,PasswordField,validators
 from passlib.hash import sha256_crypt
 from functools import wraps
 app=Flask(__name__)
+
+Academicssyallabus=Academicssyallabus()
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
@@ -316,9 +318,40 @@ def Cat():
 def Cmat():
     return render_template('Cmat.html')
 
-@app.route('/syallabuses')
-def syallabuses():
-    return render_template('syallabuses.html')    
+@app.route('/syallabus')
+def syallabus():
+    return render_template('syallabus.html')
+
+
+@app.route('/academicssyallabus')
+def academicssyallabus():
+    cur=mysql.connection.cursor()
+
+    result=cur.execute("SELECT * FROM academicssyallabus")
+   
+    academicssyallabus=cur.fetchall()
+    
+  
+
+    if result>0:
+        return render_template('academicssyallabus.html',academicssyallabus=academicssyallabus)
+    else:
+        msg='No syallabus Found'
+        return render_template('academicssyallabus.html')  
+
+        cur.close()
+     
+
+@app.route('/academicsyallabus/<string:id>/')
+def academicsyallabus(id):
+
+    cur=mysql.connection.cursor()
+
+    result=cur.execute("SELECT * FROM academicssyallabus WHERE  id=%s",[id])
+   
+    academicsyallabus=cur.fetchone()
+    
+    return render_template('academicsyallabus.html' , academicsyallabus=academicsyallabus)
 
 @app.route('/ASdashboard')
 @is_logged_in
@@ -340,54 +373,9 @@ def ASdashboard():
     return render_template('ASdashboard.html')    
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@app.route('/ academicssyallabus')
-def  academicssyallabus():
-    cur=mysql.connection.cursor()
-
-    result=cur.execute("SELECT * FROM academicssyallabus")
-
-    acasemicssyallabus=cur.fetchall()
-
-    if result>0:
-        return render_template('academicssyallabus.html',academicssyallabus=academicssyallabus)
-    else:
-        msg='No syallabus Found'
-        return render_template('academicssyallabus.html',msg=msg)
-
-    cur.close()
- 
-     
-
-@app.route('/academicsyallabus/<string:id>/')  
-def academicsyallabus(id):
-
-    cur=mysql.connection.cursor()
-
-    result=cur.execute("SELECT * FROM acadmicssyallabus WHERE id = %s",[id] )
-
-    academicsyallabus=cursor.fetchone()
-
-    return render_template('academicsyallabus.html', academicsyallabus=academicsyallabus) 
-
-
-
-class ASyallabusForm(Form):
+class A_SyallabusForm(Form):
     universityname=StringField('universityname', [validators.Length(min=1, max=200)])
-    courses = StringField('courses', [validators.Length(min=1, max=200)])
+    courses = StringField('courses', [validators.Length(min=1, max=1000)])
     year = StringField('year', [validators.Length(max=11)])
     sysllabus = TextAreaField('sysllabus', [validators.Length(min=1,max=2000)])
 
@@ -395,7 +383,7 @@ class ASyallabusForm(Form):
 @app.route('/addacademic_syallabus', methods=['GET', 'POST'])
 @is_logged_in
 def addacademic_syallabus():
-    form = ASyallabusForm(request.form)
+    form = A_SyallabusForm(request.form)
     if request.method == 'POST' and form.validate():
         universityname = form.universityname.data
         year = form.year.data
@@ -431,7 +419,7 @@ def edit_ACsyallabus(id):
     academicsyallabus = cur.fetchone()
 
 
-    form = ASyallabusForm(request.form)
+    form = A_SyallabusForm(request.form)
       
     form.universityname.data=academicsyallabus['universityname']
     form.courses.data=academicsyallabus['courses']
@@ -477,9 +465,154 @@ def delete_ACsyallabus(id):
 
     return redirect(url_for('ASdashboard'))
 
-@app.route('/academicssyallabus')
-def academics_syallabus():
-    return render_template('academicssyallabus.html')
+# @app.route('/academicssyallabus')
+# def academic_ssyallabus():
+#     return render_template('academicssyallabus.html')
+
+@app.route('/competitivessyallabus')
+def competitivessyallabus():
+    cur=mysql.connection.cursor()
+
+    result=cur.execute("SELECT * FROM competitivessyallabus")
+   
+    competitivessyallabus=cur.fetchall()
+    
+  
+
+    if result>0:
+        return render_template('competitivessyallabus.html',competitivessyallabus=competitivessyallabus)
+    else:
+        msg='No syallabus Found'
+        return render_template('competitivessyallabus.html')  
+
+        cur.close()
+
+@app.route('/competitivesyallabus/<string:id>/')
+def competitivesyallabus(id):
+
+    cur=mysql.connection.cursor()
+
+    result=cur.execute("SELECT * FROM competitivessyallabus WHERE  id=%s",[id])
+   
+    competitivesyallabus=cur.fetchone()
+    
+    return render_template('competitivesyallabus.html' , competitivesyallabus=competitivesyallabus)
+
+@app.route('/C_dashboard')
+@is_logged_in
+def C_dashboard():
+
+    cur=mysql.connection.cursor()
+
+    result=cur.execute("SELECT * FROM competitivessyallabus")
+   
+    competitivessyallabus=cur.fetchall()
+    
+  
+
+    if result>0:
+        return render_template('C_dashboard.html',competitivessyallabus=competitivessyallabus)
+    else:
+        msg='No syallabus Found'
+        return render_template('C_dashboard.html')  
+    return render_template('C_dashboard.html')    
+
+
+class C_SyallabusForm(Form):
+   
+    courses = StringField('courses', [validators.Length(min=1, max=1000)])
+    syllabus = TextAreaField('syllabus', [validators.Length(min=1,max=2000)])
+
+
+@app.route('/addC_syallabus', methods=['GET', 'POST'])
+@is_logged_in
+def addC_syallabus():
+    form = C_SyallabusForm(request.form)
+    if request.method == 'POST' and form.validate():
+       
+       
+        courses = form.courses.data
+        syllabus = form.syllabus.data
+
+       
+        cur = mysql.connection.cursor()
+
+        
+        cur.execute("INSERT INTO competitivessyallabus(courses, syllabus) VALUES(%s, %s)",(courses, syllabus))
+
+       
+        mysql.connection.commit()
+
+        cur.close()
+
+        flash('syallabus present here:', 'success')
+
+        return redirect(url_for('C_dashboard'))
+
+    return render_template('addC_syallabus.html', form=form) 
+
+
+@app.route('/editC_syallabus/<string:id>', methods=['GET', 'POST'])
+@is_logged_in
+def editC_syallabus(id):
+
+    cur=mysql.connection.cursor()
+
+    result=cur.execute("SELECT * FROM competitivessyallabus WHERE id = %s",[id])
+
+    competitivesyallabus = cur.fetchone()
+
+
+    form = C_SyallabusForm(request.form)
+      
+   
+    form.courses.data=competitivesyallabus['courses']
+    
+    form.syllabus.data=competitivesyallabus['syllabus']
+
+    if request.method == 'POST' and form.validate():
+
+        
+        courses = request.form['courses']
+       
+        syllabus = request.form['syllabus']
+
+       
+        cur = mysql.connection.cursor()
+
+        
+        cur.execute("UPDATE competitivessyallabus SET courses = %s, syllabus = %s WHERE id = %s",(courses,syllabus,id))
+
+       
+        mysql.connection.commit()
+
+        cur.close()
+
+        flash('Syallabus update', 'success')
+
+        return redirect(url_for('C_dashboard'))
+
+    return render_template('editC_syallabus.html', form=form)
+
+@app.route('/deleteC_syallabus/<string:id>')    
+@is_logged_in
+def deleteC_syallabus(id):
+    cur=mysql.connection.cursor()
+
+    cur.execute("DELETE FROM competitivessyallabus WHERE id = %s",[id])
+
+    mysql.connection.commit()
+
+    cur.close()
+
+    flash('syallabus Updated', 'success')
+
+    return redirect(url_for('C_dashboard'))
+
+# @app.route('/competitivessyallabus')
+# def competitive_ssyallabus():
+#     return render_template('competitivessyallabus.html')
+
 
 
 

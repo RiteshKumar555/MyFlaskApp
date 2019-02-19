@@ -1,12 +1,41 @@
-
 {% extends 'layout.html' %}
 {%block body%}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/article.jpg') }}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>syallabus:</h1>
+            <span class="subheading">syallabus are present here:</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+ <!-- <div class="container">
+  <div class="row"> -->
+    <!-- <div class="col-lg-8 col-md-10 mx-auto"> -->
+<table style="width:100%">
+    <tr>
+          
+            <tr>courses</tr> 
+            <tr>year</t>
 
-<ul class="list-group">
-    {% for academicsyallabus in academicssyallabus %}
-        <li class="list-group-item"><a href="academicsyallabus/{{academicsyallabus.id}}">{{academicsyallabus.title}}</a></li>
-    {% endfor %}
-</ul>
+            
 
-
+    </tr>
+   
+    <tr>
+            
+            <td>{{academicsyallabus.courses}}</td>
+            <td>{{academicsyallabus.year}}</td>
+           
+    </tr>
+   
+</table>    
+<div>
+    {{academicsyallabus.sysllabus | safe}}
+</div>
+   
 {% endblock %}

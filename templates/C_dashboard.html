@@ -1,0 +1,48 @@
+
+{% extends 'layout.html' %}
+{%block body%}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/about-bg.jpg') }}')">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row">
+            <!-- <div class="col-lg-8 col-md-10 mx-auto"> -->
+              <div class="page-heading">
+                    <h1>Dashboard<small> welcome {{session.username}} </small></h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+     <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+<div="container">
+
+<a class="btn btn-success" href="/addC_syallabus">Add syallabus</a>
+<hr>
+<body>
+    <table class="table table-striped">
+    <tr>
+       
+       
+        <th>courses</th>
+        <th>sysllabus</th>
+       
+    </tr>
+    {% for competitivesyallabus in competitivessyallabus %}
+    <tr>
+        
+        <td>{{competitivesyallabus.courses}}</td>
+        <td>{{competitivesyallabus.syallabus}}</td>
+        
+        <td><a href="editC_syallabus/{{competitivesyallabus.id}}", class="btn btn-default pull-right">Edit</a>
+        <td>    
+            <form action="{{url_for('deleteC_syallabus', id=competitivesyallabus.id)}}" methods="post">
+            <input type="hidden"  name="_method" value="DELETE">
+            <input type="submit" class="btn btn-danger" value="delete"> 
+        </form> 
+    </tr> 
+    {% endfor %}   
+    </table>
+    </body>
+    {% endblock %}
