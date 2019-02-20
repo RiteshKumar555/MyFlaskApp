@@ -49,9 +49,11 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/criteria">Criteria</a>
-                  </li>
+                  </li>  
              
               {% if session.logged_in %}
+             
+             
               <li class="nav-item">
                 <a href="/dashboard">Dashboard</a>
               </li>
@@ -71,25 +73,31 @@
               <li class="nav-item">
                 <a href="/login">Login</a>
               </li>
+                 
               {% endif %}
+              
   </ul>
 
         </div>
+        
       </div>
+     
     </nav>
-    <div class="container">
-      {%include 'includes/_messages.html' %}
-    </div>
+    
 
-{% block body %} {% endblock %}
+{% block body %} 
+
+{% endblock %}
+<div class="container">
+    {%include 'includes/_messages.html' %}
+  </div>
 
  <hr>
 
-   
     <!-- Bootstrap core JavaScript -->
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="//cdn.ckeditor.com/4.6.2/basic/ckeditor.js"></script>
+    <script src="//cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script></script>
     <script type="text/javascript">
     CKEDITOR.replace('editor')
     </script>
@@ -97,7 +105,9 @@
     
     <!-- Custom scripts for this template -->
     <script src="{{ url_for('static', filename='js/clean-blog.min.js') }}"></script>
+    
 
   </body>
+ 
 
 </html>

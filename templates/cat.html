@@ -1,7 +1,23 @@
-<html>
-    <body>
-            <h1>CAT:</h1>
-            
+
+   {% extends "layout.html" %}
+   {% block body %}
+     
+   <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/about-bg.jpg') }}')">
+     <div class="overlay"></div>
+     <div class="container">
+       <div class="row">
+         <div class="col-lg-8 col-md-10 mx-auto">
+           <div class="page-heading">
+             <h1>CAT:</h1>
+             <span class="subheading">About cat exam:</span>
+           </div>
+         </div>
+       </div>
+     </div>
+   </header>
+   <div class="container">
+   <div class="row">
+     <div class="col-lg-8 col-md-10 mx-auto">
                 <p>Before 2009, CAT was a paper based test conducted on a single day for all candidates. The pattern, number of questions and duration have seen considerable variations over the years.
 
                 On 1 May 2009, it was announced that CAT would be a Computer Based Test starting from 2009. The American firm Prometric was entrusted with the responsibility of conducting the test from 2009 to 2013.[6] The first computer based CAT was marred with technical snags.[7] The issue was so serious that it prompted the Government of India to seek a report from the convenor.[8] The trouble was diagnosed as 'Conficker' and 'W32 Nimda', the two viruses that attacked the system display of the test, causing server slow down.[9] Since 2014 onward, CAT has been conducted by Tata Consultancy Services (TCS). CAT 2015 and CAT 2016 were 180-minute tests consisting of 100 questions (34 from Quantitative Ability (QA), 34 from Verbal Ability and Reading Comprehension (VARC), and 32 from Data Interpretation and Logical Reasoning (DILR)).</h3></p>
@@ -38,6 +54,7 @@
                         <p>Four scaled scores will be presented for each candidate: an overall scaled score and three separate scaled scores for each section. As the three sections evaluate distinct sets of knowledge and skills, scores do not correlate across sections. A high score in one section does not guarantee a high score in another section. Percentile rankings are provided for each individual section as well as for the overall exam score. </p>
             
                         
+                        {%endblock%}
     
     
     </body>    

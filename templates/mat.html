@@ -1,4 +1,21 @@
+{% extends 'layout.html' %}
 {% block body %}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/about-bg.jpg') }}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>MAT</h1>
+            <span class="subheading">Here we are support for all student:</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
     <h1>MAT</h1>
     <p>Management Aptitude Test (MAT) is a standard aptitude test conducted in India since 1998 by the All India Management Association (AIMA). MAT is used for admission to Master of Business Administration (MBA) and allied programmes by over 600 business schools across India. It was approved by the Ministry of Human Resource Development in 2003.[1] </p>
     <h1>Exam Format:</h1>

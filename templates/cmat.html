@@ -1,5 +1,22 @@
-
+{% extends "layout.html" %}
 {% block body %}
+  
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/about-bg.jpg') }}')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="page-heading">
+          <h1>CMAT:</h1>
+          <span class="subheading">About cat exam:</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container">
+<div class="row">
+  <div class="col-lg-8 col-md-10 mx-auto">
     <h1>CMAT</h1>
     <p>By 2011, there were a number of entrance exams for management programmes in India. These included CAT, JMET, XAT, Gitam SAT, NMAT, SNAP, MAT, state-specific exams, exams conducted by management associations of MBA institutes and exams conducted by private colleges. AICTE launched CMAT to reduce the burden (physical, mental and financial stress) of students in attending to multiple examinations.
 

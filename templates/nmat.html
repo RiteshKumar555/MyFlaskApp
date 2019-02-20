@@ -1,4 +1,21 @@
+{% extends 'layout.html' %}
 {% block body %}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/about-bg.jpg') }}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>NMAT</h1>
+            <span class="subheading">Here we are support for all student:</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
     <h1>NMAT</h1>
     <p>The NMAT by GMAC™ exam is computer-delivered and gives each candidate a randomly generated test from a pool of questions, delivered one-at-a-time. NMAT by GMAC™ can be taken thrice and the best of the scores shall be considered provided the candidate has applied to the institute with each of the scores.
 

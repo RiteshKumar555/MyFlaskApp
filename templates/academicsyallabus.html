@@ -19,8 +19,9 @@
 <table style="width:100%">
     <tr>
           
-            <tr>courses</tr> 
-            <tr>year</t>
+            <th>courses</th> 
+            <th>year</th>
+            <th>sysllabus</th>
 
             
 
@@ -30,12 +31,13 @@
             
             <td>{{academicsyallabus.courses}}</td>
             <td>{{academicsyallabus.year}}</td>
+            <td><div>
+              {{academicsyallabus.sysllabus | safe}}
+          </div></td>
            
     </tr>
    
 </table>    
-<div>
-    {{academicsyallabus.sysllabus | safe}}
-</div>
+
    
 {% endblock %}

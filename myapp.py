@@ -301,7 +301,7 @@ def ibsat():
 
 @app.route('/examdates')
 def examdates():
-    return
+    return render_template('examdates.html')
 
 
 
@@ -521,7 +521,7 @@ def C_dashboard():
 class C_SyallabusForm(Form):
    
     courses = StringField('courses', [validators.Length(min=1, max=1000)])
-    syllabus = TextAreaField('syllabus', [validators.Length(min=1,max=2000)])
+    syllabus = TextAreaField('syllabus', [validators.Length(min=1,max=50000)])
 
 
 @app.route('/addC_syallabus', methods=['GET', 'POST'])
