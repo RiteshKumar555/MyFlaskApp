@@ -14,10 +14,12 @@
 
     <!-- Custom styles for this template -->
     <link href="{{ url_for('static', filename='css/clean-blog.min.css') }}" rel="stylesheet">
-
+   
   </head>
-
+  
   <body>
+      
+    
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -26,12 +28,17 @@
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
+         
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
+                
               <a class="nav-link" href="/"><color="black"></color>Home</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/upload">upload</a>
+            </li>  
             <li class="nav-item">
               <a class="nav-link" href="/about">About</a>
             </li>
@@ -50,11 +57,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/criteria">Criteria</a>
                   </li>  
+                
              
               {% if session.logged_in %}
-             
-             
               <li class="nav-item">
+                  <a href="/uploads">uploads</a>
+                </li>
+              <li class="nav-item">   
                 <a href="/dashboard">Dashboard</a>
               </li>
               <li class="nav-item">
@@ -63,9 +72,13 @@
                 <li class="nav-item">
                     <a href="/C_dashboard">C_Dashboard</a>
                   </li>
+                  
+                 
+                  
               <li class="nav-item">
                 <a href="/logout">Logout</a>
               </li>
+              
               {% else %}
               <li class="nav-item">
                 <a href="/register">Register</a>
@@ -73,12 +86,17 @@
               <li class="nav-item">
                 <a href="/login">Login</a>
               </li>
+            </li>
+           
+             
+              
                  
               {% endif %}
               
   </ul>
-
+  
         </div>
+       
         
       </div>
      
@@ -88,6 +106,7 @@
 {% block body %} 
 
 {% endblock %}
+
 <div class="container">
     {%include 'includes/_messages.html' %}
   </div>
@@ -99,7 +118,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="//cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script></script>
     <script type="text/javascript">
-    CKEDITOR.replace('editor')
+    CKEDITOR.replace('editor')    board
+    C_Dashboard
+    imageDashboard
+    upload
+    Logout
+
+
     </script>
     <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     

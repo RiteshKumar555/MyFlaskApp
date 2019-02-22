@@ -1,13 +1,25 @@
 from flask import Flask,render_template,flash,redirect,url_for,session,request,logging
 from data1 import Academicssyallabus
 from flask_mysqldb import MySQL
-from wtforms import Form,StringField,TextAreaField,PasswordField,validators
+from wtforms import Form,StringField,TextAreaField,PasswordField,validators,FileField
 from passlib.hash import sha256_crypt
 from functools import wraps
+from werkzeug import secure_filename
+import os
+# from flask.ext.wtf import Form
+from wtforms import FileField, validators, ValidationError, SubmitField
+from wtforms.validators import InputRequired
+# import mysql.connector
+# from mysql.connector import Error
+# from mysql.connector import errorcode
+
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+
 app=Flask(__name__)
 
 Academicssyallabus=Academicssyallabus()
-
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = '-p'
@@ -609,18 +621,48 @@ def deleteC_syallabus(id):
 
     return redirect(url_for('C_dashboard'))
 
-# @app.route('/competitivessyallabus')
-# def competitive_ssyallabus():
-#     return render_template('competitivessyallabus.html')
+@app.route('/upload')
+def upload():
+    return render_template('upload.html')
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS  
 
+class UploadForm(Form):
+    name = StringField('name',[validators.Length(min=1, max=1000)])
+    photo = FileField('Upload Image here', validators=[InputRequired()])
+    submit = SubmitField("Send") 
+    
+              
+@app.route('/uploader', methods = ['GET', 'POST'])
+def uploader():
+    form = UploadForm(request.form)
+    if request.method == 'POST' and form.validate():
+        name = form.name.data
+        photo = form.photo.data
+    
+        
 
+             
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(request.url)
+        file = request.files['file']
+                    
+    if file and allowed_file(file.filename):
+                        path = os.path.join(current_app.config['UPLOAD_FOLDER'] )
+                        filename = secure_filename(file.filename)
+                        print filename
+        
 
+        
 
+		
+     
+     
+    
 
-
-
-       
 
 if __name__ == '__main__':
     app.run(debug=True)

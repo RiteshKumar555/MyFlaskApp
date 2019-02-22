@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{%block body%}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/article.jpg') }}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Dashboard<small> welcome {{session.username}} </small></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+ <div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+    <h1>dashboard</h1>
+<a class="btn btn-success" href="/addimage">Add image</a>
+<hr>
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>name</th>
+        <th>photo</th>
+       
+    </tr>
+    {% for upload in uploads %}
+    <tr>
+        <td>{{upload.id}}</td>
+        <td>{{upload.name}}</td>
+        <td>{{upload.photo}}</td>
+       
+        <td><a href="edit_article/{{article.id}}", class="btn btn-default pull-right">Edit</a>
+        <td>    
+            <form action="{{url_for('delete_article', id=article.id)}}" methods="post">
+            <input type="hidden"  name="_method" value="DELETE">
+            <input type="submit" class="btn btn-danger" value="delete"> 
+        </form> 
+        </td>
+
+     </tr>
+    {% endfor %}
+</table>
+    </div>
+
+
+{% endblock%}
+
+
