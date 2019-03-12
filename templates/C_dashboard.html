@@ -1,13 +1,13 @@
-
 {% extends 'layout.html' %}
 {%block body%}
 <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/about-bg.jpg') }}')">
         <div class="overlay"></div>
         <div class="container">
           <div class="row">
-            <!-- <div class="col-lg-8 col-md-10 mx-auto"> -->
+            <div class="col-lg-8 col-md-10 mx-auto">
               <div class="page-heading">
                     <h1>Dashboard<small> welcome {{session.username}} </small></h1>
+                    <snall>Here all Competitive syllabus are present here:</small>
               </div>
             </div>
           </div>
@@ -26,7 +26,7 @@
        
        
         <th>courses</th>
-        <th>sysllabus</th>
+     
        
     </tr>
     {% for competitivesyallabus in competitivessyallabus %}
@@ -45,4 +45,4 @@
     {% endfor %}   
     </table>
     </body>
-    {% endblock %}
+{% endblock %}

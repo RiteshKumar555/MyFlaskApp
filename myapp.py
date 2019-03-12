@@ -1,24 +1,28 @@
-from flask import Flask,render_template,flash,redirect,url_for,session,request,logging
+from flask import Flask,render_template,flash,redirect,url_for,session,request,logging,send_from_directory
 from data1 import Academicssyallabus
 from flask_mysqldb import MySQL
 from wtforms import Form,StringField,TextAreaField,PasswordField,validators,FileField
 from passlib.hash import sha256_crypt
 from functools import wraps
+from flask_wtf.file import FileField, FileRequired
 from werkzeug import secure_filename
-import os
-# from flask.ext.wtf import Form
-from wtforms import FileField, validators, ValidationError, SubmitField
 from wtforms.validators import InputRequired
-# import mysql.connector
-# from mysql.connector import Error
-# from mysql.connector import errorcode
+# from config import MEDIA_FOLDER
+import os
+# import lib.helper_functions
+# import config
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
 
 
 app=Flask(__name__)
 
-Academicssyallabus=Academicssyallabus()
+
+# ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+
+
+# app.config['UPLOAD_FOLDER'] = '/home/simsol/Documents/projects/newproj/MyFlaskApp/static/img'
 # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
@@ -28,15 +32,21 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.config['SECRET_KEY'] = 'FUCK'
 
 
+
 mysql = MySQL(app)
+# @app.route("/image")
+# def image():
+#     return render_template("image.html")
+
+
 
 @app.route('/')
 def home():
     return render_template('home.html')
 
-@app.route('/post')
-def post():
-    return render_template('post.html')
+# @app.route('/upload')
+# def upload():
+#     return render_template("upload.html")    
 
 @app.route('/about')
 def  about():
@@ -93,7 +103,7 @@ def register():
         cur = mysql.connection.cursor()
 
       
-        cur.execute("INSERT INTO usesr(name, email, username, password) VALUES(%s, %s, %s, %s)", (name, email, username, password))
+        cur.execute("INSERT INTO users(name, email, username, password) VALUES(%s, %s, %s, %s)", (name, email, username, password))
 
      
         mysql.connection.commit()
@@ -115,7 +125,7 @@ def login():
 
         cur=mysql.connection.cursor()
 
-        result=cur.execute("SELECT * from usesr WHERE username = %s ",[username])
+        result=cur.execute("SELECT * from users WHERE username = %s ",[username])
 
         if result>0:
             data=cur.fetchone()
@@ -154,8 +164,10 @@ def is_logged_in(f):
     return wrap   
 
 
+
+
 @app.route('/dashboard')
-@is_logged_in
+
 def dashboard():
 
     cur=mysql.connection.cursor()
@@ -477,9 +489,9 @@ def delete_ACsyallabus(id):
 
     return redirect(url_for('ASdashboard'))
 
-# @app.route('/academicssyallabus')
-# def academic_ssyallabus():
-#     return render_template('academicssyallabus.html')
+@app.route('/academicssyallabus')
+def academic_ssyallabus():
+    return render_template('academicssyallabus.html')
 
 @app.route('/competitivessyallabus')
 def competitivessyallabus():
@@ -530,6 +542,7 @@ def C_dashboard():
     return render_template('C_dashboard.html')    
 
 
+
 class C_SyallabusForm(Form):
    
     courses = StringField('courses', [validators.Length(min=1, max=1000)])
@@ -577,9 +590,7 @@ def editC_syallabus(id):
 
     form = C_SyallabusForm(request.form)
       
-   
-    form.courses.data=competitivesyallabus['courses']
-    
+    form.courses.data=competitivesyallabus
     form.syllabus.data=competitivesyallabus['syllabus']
 
     if request.method == 'POST' and form.validate():
@@ -621,49 +632,66 @@ def deleteC_syallabus(id):
 
     return redirect(url_for('C_dashboard'))
 
-@app.route('/upload')
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# @app.route("/uploader")
+# def uploader():
+#     return render_template("uploader.html")
+
+@app.route("/upload", methods=["POST"])
 def upload():
-    return render_template('upload.html')
+    target = os.path.join(APP_ROOT, 'images/')
+    print(target)
+    if not os.path.isdir(target):
+            os.mkdir(target)
+    else:
+        print("Couldn't create upload directory: {}".format(target))
+    print(request.files.getlist("file"))
+    for upload in request.files.getlist("file"):
+        print(upload)
+        print("{} is the file name".format(upload.filename))
+        filename = upload.filename
+        destination = "/".join([target, filename])
+        print ("Accept incoming file:", filename)
+        print ("Save it to:", destination)
+        upload.save(destination)
+        image_names = os.listdir('./images')
+        print(image_names)
+        return render_template("complete.html", image_names=image_names)
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS  
+    # return send_from_directory("images", filename, as_attachment=True)
+    return render_template("complete.html", image_name=filename)
 
-class UploadForm(Form):
-    name = StringField('name',[validators.Length(min=1, max=1000)])
-    photo = FileField('Upload Image here', validators=[InputRequired()])
-    submit = SubmitField("Send") 
+@app.route('/upload/<filename>')
+def send_image(filename):
+    return send_from_directory("images", filename)
+
+@app.route('/addimage')
+def addimage():
+    return render_template("uploader.html")    
+
+
+
+@app.route('/uploads/<path:filename>')
+def download_file(filename):
+    return send_from_directory("images", filename, as_attachment=True)
+
+
+
+import os
+import glob
+@app.route('/delete/<path:filename>')
+def delete_file(filename):
+    filename = glob.glob('./images/*')
+    for f in filename:
+        os.remove(f)
+    return render_template("complete.html")
+
     
-              
-@app.route('/uploader', methods = ['GET', 'POST'])
-def uploader():
-    form = UploadForm(request.form)
-    if request.method == 'POST' and form.validate():
-        name = form.name.data
-        photo = form.photo.data
-    
-        
-
-             
-    if 'file' not in request.files:
-        flash('No file part')
-        return redirect(request.url)
-        file = request.files['file']
-                    
-    if file and allowed_file(file.filename):
-                        path = os.path.join(current_app.config['UPLOAD_FOLDER'] )
-                        filename = secure_filename(file.filename)
-                        print filename
-        
-
-        
-
-		
-     
-     
     
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
 
+
+if __name__ == "__main__":
+    app.run(debug=True)    

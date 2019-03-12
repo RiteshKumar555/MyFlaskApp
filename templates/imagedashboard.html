@@ -6,7 +6,8 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
-            <h1>Dashboard<small> welcome {{session.username}} </small></h1>
+            <h1>Dashboard:</h1>
+            <span class="subheading">for the image:</span>
           </div>
         </div>
       </div>
@@ -16,24 +17,26 @@
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
     <h1>dashboard</h1>
-<a class="btn btn-success" href="/addimage">Add image</a>
+<a class="btn btn-success" href="/addimage">Addimage</a>
 <hr>
 <table class="table table-striped">
     <tr>
         <th>ID</th>
         <th>name</th>
         <th>photo</th>
-       
+        
+        <th></th>
+        <th></th>
     </tr>
     {% for upload in uploads %}
     <tr>
         <td>{{upload.id}}</td>
         <td>{{upload.name}}</td>
         <td>{{upload.photo}}</td>
-       
-        <td><a href="edit_article/{{article.id}}", class="btn btn-default pull-right">Edit</a>
+        <td>{{upload.create_date}}</td>
+
         <td>    
-            <form action="{{url_for('delete_article', id=article.id)}}" methods="post">
+            <form action="{{url_for('deleteimage', id=upload.id)}}" methods="post">
             <input type="hidden"  name="_method" value="DELETE">
             <input type="submit" class="btn btn-danger" value="delete"> 
         </form> 
@@ -46,5 +49,3 @@
 
 
 {% endblock%}
-
-

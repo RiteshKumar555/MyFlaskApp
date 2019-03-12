@@ -1,4 +1,3 @@
-
 <html>
   <head>
     
@@ -14,6 +13,11 @@
 
     <!-- Custom styles for this template -->
     <link href="{{ url_for('static', filename='css/clean-blog.min.css') }}" rel="stylesheet">
+    <script src="/static/js/jquery-3.1.1.js"></script>
+<script src="/static/js/jquery.ui.widget.js"></script>
+  
+
+
    
   </head>
   
@@ -30,15 +34,12 @@
           <i class="fa fa-bars"></i>
          
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
+        <div class="collapse navbar-collapse" id="navbarResponsive" style="margin-left: -14%;">
+          <ul class="navbar-nav ml-auto" margin-left: auto>
             <li class="nav-item">
                 
               <a class="nav-link" href="/"><color="black"></color>Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/upload">upload</a>
-            </li>  
             <li class="nav-item">
               <a class="nav-link" href="/about">About</a>
             </li>
@@ -58,11 +59,8 @@
                     <a class="nav-link" href="/criteria">Criteria</a>
                   </li>  
                 
-             
               {% if session.logged_in %}
-              <li class="nav-item">
-                  <a href="/uploads">uploads</a>
-                </li>
+              
               <li class="nav-item">   
                 <a href="/dashboard">Dashboard</a>
               </li>
@@ -71,8 +69,10 @@
                 </li>
                 <li class="nav-item">
                     <a href="/C_dashboard">C_Dashboard</a>
+                  </li> <li class="nav-item">
+                    <a href="/addimage">imageDashboard</a>
                   </li>
-                  
+                 
                  
                   
               <li class="nav-item">
@@ -111,20 +111,15 @@
     {%include 'includes/_messages.html' %}
   </div>
 
- <hr>
+ 
 
     <!-- Bootstrap core JavaScript -->
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="//cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script></script>
+    <script src="//cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script>
     <script type="text/javascript">
-    CKEDITOR.replace('editor')    board
-    C_Dashboard
-    imageDashboard
-    upload
-    Logout
-
-
+    CKEDITOR.replace('editor')   
+    
     </script>
     <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     

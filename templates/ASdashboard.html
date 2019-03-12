@@ -8,6 +8,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
             <h1>Dashboard<small> welcome {{session.username}} </small></h1>
+            <small>Here all Academy syllabus are present here:</small>
           </div>
         </div>
       </div>
@@ -27,7 +28,7 @@
         <th>university_name</th>
         <th>year</th>
         <th>courses</th>
-        <th>sysllabus</th>
+       
        
     </tr>
     {% for academicsyallabus in academicssyallabus %}
@@ -36,7 +37,7 @@
         <td>{{academicsyallabus.universityname}}</td>
         <td>{{academicsyallabus.year}}</td>
         <td>{{academicsyallabus.courses}}</td>
-        <td>{{academicsyallabus.syallabus}}</td>
+       
         <td>{{academicsyallabus.create_date}}</td>
         <td><a href="edit_ACsyallabus/{{academicsyallabus.id}}", class="btn btn-default pull-right">Edit</a>
         <td>    
