@@ -6,22 +6,22 @@
           <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
               <div class="page-heading">
-                    <h1>Dashboard<small> welcome {{session.username}} </small></h1>
+                    <h1>Competitive_syllabus Dashboard<small> welcome {{session.username}} </small></h1>
                     <snall>Here all Competitive syllabus are present here:</small>
               </div>
             </div>
           </div>
         </div>
       </header>
-     <div class="container">
+<div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-<div="container">
 
-<a class="btn btn-success" href="/addC_syallabus">Add syallabus</a>
-<hr>
-<body>
-    <table class="table table-striped">
+
+    <a class="btn btn-success" href="/addC_syallabus">Add syllabus</a>
+    <hr>
+    <body>
+        <table class="table table-striped">
     <tr>
        
        
@@ -42,7 +42,8 @@
             <input type="submit" class="btn btn-danger" value="delete"> 
         </form> 
     </tr> 
-    {% endfor %}   
-    </table>
+    {% endfor %}  
+</div>     
+        </table>
     </body>
 {% endblock %}

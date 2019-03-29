@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+{%block body%}
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/article.jpg') }}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Dashboard:</h1>
+            <span class="subheading">for the image:</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+ <div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+    <h1>dashboard</h1>
+    {% if session.logged_in %}
+    <body>
+
+        <form id="upload-form"  method="POST" method="GET" enctype="multipart/form-data">
+        
+            <strong>Files:</strong><br>
+            <input id="file-picker" type="file" name="file" accept="image/*" multiple>
+            <div id="msg"></div>
+            <input type="submit" value="Upload!" >
+            
+        </form>
+        </body>
+    {% endif %}
+<hr>
+<table id="imgtbl" class="table table-striped">
+    <tr>
+        <th>id</th>
+        <th>name</th>
+    </tr>
+    {% for image_name in image_names %} 
+    <tr>
+        
+        
+       
+        <td>{{image_name}}</td>
+    
+        <td>    
+            <form action="{{url_for('download_file', filename=image_name)}}" >
+       
+            <input type="submit" class="btn btn-success" value="download"> 
+        </form> 
+        <td>    
+            <form action="{{url_for('send_image', filename=image_name)}}">
+        
+            <input type="submit" class="btn btn-success" value="preview"> 
+        </form> 
+        </td>
+        {% if session.logged_in %}
+        <td>    
+           
+                <input type="button" value="Delete Image" class="btn btn-danger"
+                onclick="document.getElementById('imgtbl').deleteRow(1)">  
+        </td>
+        {% endif %}
+       
+    {% endfor %}   
+</table>
+<script>
+        var tables = document.getElementsByTagName('table');
+        var table = tables[tables.length - 1];
+        var rows = table.rows;  
+        for(var i = 1, td; i <= rows.length; i++){
+            td = document.createElement('td');
+            td.appendChild(document.createTextNode(i + 0));
+            rows[i].insertBefore(td, rows[i].firstChild);
+        }
+       
+</script>    
+  
+
+{% endblock %}
+

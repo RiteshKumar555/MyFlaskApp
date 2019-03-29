@@ -7,10 +7,7 @@ from functools import wraps
 from flask_wtf.file import FileField, FileRequired
 from werkzeug import secure_filename
 from wtforms.validators import InputRequired
-# from config import MEDIA_FOLDER
 import os
-# import lib.helper_functions
-# import config
 
 
 
@@ -18,12 +15,10 @@ import os
 app=Flask(__name__)
 
 
-# ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 
 
-# app.config['UPLOAD_FOLDER'] = '/home/simsol/Documents/projects/newproj/MyFlaskApp/static/img'
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = '-p'
@@ -34,19 +29,13 @@ app.config['SECRET_KEY'] = 'FUCK'
 
 
 mysql = MySQL(app)
-# @app.route("/image")
-# def image():
-#     return render_template("image.html")
+
 
 
 
 @app.route('/')
 def home():
     return render_template('home.html')
-
-# @app.route('/upload')
-# def upload():
-#     return render_template("upload.html")    
 
 @app.route('/about')
 def  about():
@@ -278,7 +267,7 @@ def delete_article(id):
 @app.route('/logout')
 def logout():
     session.clear()
-    flash('You have successfully logged')
+    flash('You have successfully logged',"success")
     return redirect(url_for('login'))
 
 @app.route('/courses')
@@ -447,7 +436,7 @@ def edit_ACsyallabus(id):
       
     form.universityname.data=academicsyallabus['universityname']
     form.courses.data=academicsyallabus['courses']
-    # form.year.data=academicsyallabus['year']
+    form.year.data=academicsyallabus['year']
     form.sysllabus.data=academicsyallabus['sysllabus']
 
     if request.method == 'POST' and form.validate():
@@ -632,43 +621,52 @@ def deleteC_syallabus(id):
 
     return redirect(url_for('C_dashboard'))
 
+
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-# @app.route("/uploader")
-# def uploader():
-#     return render_template("uploader.html")
 
-@app.route("/upload", methods=["POST"])
+
+@app.route("/upload", methods=["GET","POST"])
 def upload():
-    target = os.path.join(APP_ROOT, 'images/')
-    print(target)
-    if not os.path.isdir(target):
+    if request.method=='GET':
+        return render_template("upload.html")
+    if request.method=='POST':
+
+        target = os.path.join(APP_ROOT, 'images/')
+        print(target)
+        if not os.path.isdir(target):
             os.mkdir(target)
-    else:
-        print("Couldn't create upload directory: {}".format(target))
-    print(request.files.getlist("file"))
-    for upload in request.files.getlist("file"):
-        print(upload)
-        print("{} is the file name".format(upload.filename))
-        filename = upload.filename
-        destination = "/".join([target, filename])
-        print ("Accept incoming file:", filename)
-        print ("Save it to:", destination)
-        upload.save(destination)
-        image_names = os.listdir('./images')
-        print(image_names)
-        return render_template("complete.html", image_names=image_names)
+        else:
+            print("Couldn't create upload directory: {}".format(target))
+            print(request.files.getlist("file"))
+        for upload in request.files.getlist("file"):
+            print(file)
+            print(upload)
+            print("{} is the file name".format(upload.filename))
+            filename = upload.filename
+            # print(testtttttttttttt)
+            destination = "/".join([target, filename])
+            print ("Accept incoming file:", filename)
+            print ("Save it to:", destination)
+            upload.save(destination)
+            image_names = os.listdir('./images')
+            print(image_names)
+            if upload:
+          
+                return render_template("upload.html", image_names=image_names)
 
-    # return send_from_directory("images", filename, as_attachment=True)
-    return render_template("complete.html", image_name=filename)
+        
 
+    if request.method=='GET':
+        return render_template("upload.html")    
+    return render_template("upload.html")
 @app.route('/upload/<filename>')
 def send_image(filename):
-    return send_from_directory("images", filename)
+    return send_from_directory("images",filename)
 
-@app.route('/addimage')
-def addimage():
-    return render_template("uploader.html")    
+    
+
+
 
 
 
@@ -676,19 +674,11 @@ def addimage():
 def download_file(filename):
     return send_from_directory("images", filename, as_attachment=True)
 
-
-
-import os
-import glob
-@app.route('/delete/<path:filename>')
-def delete_file(filename):
-    filename = glob.glob('./images/*')
-    for f in filename:
-        os.remove(f)
-    return render_template("complete.html")
-
-    
-    
+@app.route('/upload')
+def preview_fle():
+    image_names = os.listdir('./images')
+    print(image_names)
+    return send_from_directory("images", image_names=image_names)
 
 
 

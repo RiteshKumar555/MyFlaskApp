@@ -14,7 +14,7 @@
     <!-- Custom styles for this template -->
     <link href="{{ url_for('static', filename='css/clean-blog.min.css') }}" rel="stylesheet">
     <script src="/static/js/jquery-3.1.1.js"></script>
-<script src="/static/js/jquery.ui.widget.js"></script>
+    <script src="/static/js/jquery.ui.widget.js"></script>
   
 
 
@@ -23,41 +23,45 @@
   
   <body>
       
-    
-
+      
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand" href="/"></a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fa fa-bars"></i>
+          <a class="navbar-brand" href="/"></a>
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+          
+          
          
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive" style="margin-left: -14%;">
-          <ul class="navbar-nav ml-auto" margin-left: auto>
-            <li class="nav-item">
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive" style="margin-left: -14%;">
+            <ul class="navbar-nav ml-auto" margin-left: auto>
+              <li class="nav-item">
                 
-              <a class="nav-link" href="/"><color="black"></color>Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/articles">articles</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/courses">Courses</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/syallabus">Syallabus</a>
+                <a class="nav-link" href="/"><color="black"></color>Home</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="/examdates">Examdates</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/criteria">Criteria</a>
-                  </li>  
+                <a class="nav-link" href="/about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/articles">articles</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/courses">Courses</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/syallabus">Syllabus</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/examdates">Examdates</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/criteria">Criteria</a>
+              </li>  
+              <li class="nav-item">
+                <a href="/upload">upload</a>
+              </li>
                 
               {% if session.logged_in %}
               
@@ -65,51 +69,53 @@
                 <a href="/dashboard">Dashboard</a>
               </li>
               <li class="nav-item">
-                  <a href="/ASdashboard">ASdashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/C_dashboard">C_Dashboard</a>
-                  </li> <li class="nav-item">
-                    <a href="/addimage">imageDashboard</a>
-                  </li>
-                 
-                 
+                <a href="/ASdashboard">ASdashboard</a>
+              </li>
+              <li class="nav-item">
+                <a href="/C_dashboard">CDashboard</a>
+              </li>
+             
                   
               <li class="nav-item">
                 <a href="/logout">Logout</a>
               </li>
               
               {% else %}
+             
               <li class="nav-item">
                 <a href="/register">Register</a>
               </li>
               <li class="nav-item">
                 <a href="/login">Login</a>
               </li>
-            </li>
-           
              
-              
+                 
                  
               {% endif %}
               
-  </ul>
-  
-        </div>
-       
-        
+              
+            </ul>      
+          </div>      
       </div>
+       
+  
+      
+
      
     </nav>
-    
+   
+   
+          
 
 {% block body %} 
+
 
 {% endblock %}
 
 <div class="container">
-    {%include 'includes/_messages.html' %}
-  </div>
+  {%include 'includes/_messages.html' %}
+</div>
+
 
  
 
